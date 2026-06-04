@@ -1,3 +1,5 @@
+from colorama import Fore, Style
+
 Temperatura_Semanas = {"Segunda": (0, 0), "Terça": (0, 0), "Quarta": (0, 0), "Quinta": (0, 0), "Sexta": (0, 0), "Sabado": (0, 0), "Domingo": (0, 0)}
 
 def AdicionarTemperaturas():
@@ -5,17 +7,19 @@ def AdicionarTemperaturas():
 
     try:
         for c, (min, max) in Temperatura_Semanas.items():
+            print(f"{Fore.CYAN}{c.upper()}{Style.RESET_ALL}")
             min = float(input(f"Digita a temperatura minima no dia {c}: "))
             max = float(input(f"Digita a temperatura maxima no dia {c}: "))
 
             if min > max: 
-                print("\n Não é possivel a temperatura minima ser maior do que a temperatura maxima. Tente novamente.")
+                print(f"\n{Fore.RED}Não é possivel a temperatura minima ser maior do que a temperatura maxima. Tente novamente.{Style.RESET_ALL}")
                 raise ValueError
 
             Temperatura_Semanas[c] = (min, max)
+            print("\n")
     
     except ValueError:
-        print("\n Valor errado, tente novamente\n")
+        print(f"\n {Fore.RED}Valor errado, tente novamente{Style.RESET_ALL}\n")
         Main()
 
 def CalcularMedia():
@@ -49,7 +53,7 @@ def AnalisarDias():
 def ExibirResultados(media_semana, semana_acima_media, semana_abaixo_media):
     global Temperatura_Semanas
 
-    texto_semanas = "\n=== TEMPERATURA DOS DIAS DA SEMANA ===\n"
+    texto_semanas = f"\n{Fore.LIGHTCYAN_EX}=== TEMPERATURA DOS DIAS DA SEMANA ==={Style.RESET_ALL}\n"
 
     for c, (min, max) in Temperatura_Semanas.items():
         texto_semanas += f"{c} --> Mín: {min}°C | Max: {max}°C\n"
@@ -58,8 +62,8 @@ def ExibirResultados(media_semana, semana_acima_media, semana_abaixo_media):
 
     print(f"Media da temperatura da semana: {media_semana}°C\n")
 
-    texto_semanas_acima_media = "=== DIAS ACIMA DA MEDIA ===\n"
-    texto_semanas_abaixo_media = "=== DIAS ABAIXO DA MEDIA ===\n"
+    texto_semanas_acima_media = f"{Fore.LIGHTYELLOW_EX}=== DIAS ACIMA DA MEDIA ==={Style.RESET_ALL}\n"
+    texto_semanas_abaixo_media = f"{Fore.LIGHTYELLOW_EX}=== DIAS ABAIXO DA MEDIA ==={Style.RESET_ALL}\n"
 
     for i in semana_acima_media:
         texto_semanas_acima_media += f"- {i}\n"
